@@ -1,0 +1,23 @@
+{
+  "limit": 1000,
+  "keywords": [
+    {
+      "keyword": "sample_keyword1",
+      "keyword_guid": "013ab60d-83cb-4d43-bc14-6f85d41bd23e",
+      "country": 11,
+      "visits": 0,
+      "contacts": 0,
+      "leads": 0,
+      "created_at": 1358787734716
+    },
+    {
+      "keyword": "sample_keyword2",
+      "keyword_guid": "8cec1de7-45e8-4106-a2a7-35882423f07e",
+      "country": 11,
+      "visits": 0,
+      "contacts": 0,
+      "leads": 0,
+      "created_at": 1358787734866
+    }
+  ]
+}

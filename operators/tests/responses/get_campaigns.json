@@ -1,0 +1,24 @@
+{
+    "hasMore": true,
+    "offset": "MTMwNTQ3MjM=",
+    "campaigns": [
+        {
+            "appId": 20185,
+            "appName": "AbBatch",
+            "id": 13054799,
+            "lastUpdatedTime": 1401715797000
+        },
+        {
+            "appId": 20185,
+            "appName": "AbBatch",
+            "id": 13054798,
+            "lastUpdatedTime": 1401715742000
+        },
+        {
+            "appId": 113,
+            "appName": "Batch",
+            "id": 13054723,
+            "lastUpdatedTime": 1401715620076
+        }
+    ]
+}

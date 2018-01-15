@@ -1,0 +1,18 @@
+{
+    "appId": 20185,
+    "appName": "AbBatch",
+    "contentId": 933742756,
+    "counters": {
+        "delivered": 1,
+        "open": 1,
+        "processed": 1,
+        "sent": 1
+    },
+    "id": 13054799,
+    "name": "Test AB (Variation) ",
+    "numIncluded": 1,
+    "numQueued": 1,
+    "subType": "VariantB",
+    "subject": "test",
+    "type": "AB"
+}

@@ -1,0 +1,59 @@
+[
+    {
+        "portalId": 62515,
+        "ownerId": 64,
+        "type": "PERSON",
+        "firstName": "Holly",
+        "lastName": "Henderson",
+        "email": "holly@dundermifflin.com",
+        "createdAt": 1405605858624,
+        "updatedAt": 1416928146449,
+        "remoteList": [
+            {
+                "portalId": 62515,
+                "ownerId": 64,
+                "remoteId": "137304",
+                "remoteType": "HUBSPOT",
+                "active": true
+            }
+        ]
+    },
+    {
+        "portalId": 62515,
+        "ownerId": 65,
+        "type": "PERSON",
+        "firstName": "Michael",
+        "lastName": "Scott",
+        "email": "michael@dundermifflin.com",
+        "createdAt": 1405605858732,
+        "updatedAt": 1416928145437,
+        "remoteList": [
+            {
+                "portalId": 62515,
+                "ownerId": 65,
+                "remoteId": "153112",
+                "remoteType": "HUBSPOT",
+                "active": true
+            }
+        ]
+    },
+    {
+        "portalId": 62515,
+        "ownerId": 66,
+        "type": "PERSON",
+        "firstName": "Dwight",
+        "lastName": "Schrute",
+        "email": "dwight@dundermifflin.com",
+        "createdAt": 1405605858898,
+        "updatedAt": 1416928146430,
+        "remoteList": [
+            {
+                "portalId": 62515,
+                "ownerId": 66,
+                "remoteId": "166656",
+                "remoteType": "HUBSPOT",
+                "active": true
+            }
+        ]
+    }
+]

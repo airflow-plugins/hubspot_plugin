@@ -1,0 +1,56 @@
+{
+  "workflows": [
+    {
+      "name": "Testing 123",
+      "id": 10900,
+      "type": "DRIP_DELAY",
+      "enabled": false,
+      "insertedAt": 1348564640837,
+      "updatedAt": 1467737836223,
+      "personaTagIds": [
+
+      ],
+      "contactListIds": {
+        "enrolled": 300,
+        "active": 68737,
+        "steps": [
+
+        ]
+      }
+    },
+    {
+      "name": "Test 2",
+      "id": 12707,
+      "enabled": false,
+      "insertedAt": 1349673659792,
+      "updatedAt": 1349673659792,
+      "personaTagIds": [
+
+      ],
+      "contactListIds": {
+        "enrolled": 309,
+        "active": 68738,
+        "steps": [
+
+        ]
+      }
+    },
+    {
+      "name": "Example Workflow",
+      "id": 23505,
+      "enabled": false,
+      "insertedAt": 1353448650631,
+      "updatedAt": 1353448650631,
+      "personaTagIds": [
+
+      ],
+      "contactListIds": {
+        "enrolled": 318,
+        "active": 68740,
+        "steps": [
+
+        ]
+      }
+    }
+  ]
+}

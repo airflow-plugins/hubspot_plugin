@@ -1,0 +1,153 @@
+[
+  {
+    "portalId": 62515,
+    "guid": "0033cf74de6a48c4ac5d805d72d69822",
+    "name": "Example Form Name",
+    "action": "",
+    "method": "POST",
+    "cssClass": "",
+    "redirect": "",
+    "submitText": "Submit",
+    "followUpId": "",
+    "notifyRecipients": "",
+    "leadNurturingCampaignId": "",
+    "formFieldGroups": [
+      {
+        "fields": [
+          {
+            "name": "firstname",
+            "label": "First Name",
+            "type": "string",
+            "fieldType": "text",
+            "description": "",
+            "groupName": "",
+            "displayOrder": 0,
+            "required": false,
+            "selectedOptions": [
+
+            ],
+            "options": [
+
+            ],
+            "validation": {
+              "name": "",
+              "message": "",
+              "data": "",
+              "useDefaultBlockList": false,
+              "blockedEmailAddresses": [
+
+              ]
+            },
+            "enabled": true,
+            "hidden": false,
+            "defaultValue": "",
+            "isSmartField": false,
+            "unselectedLabel": "",
+            "placeholder": "",
+            "dependentFieldFilters": [
+
+            ],
+            "labelHidden": false
+          }
+        ],
+        "default": true,
+        "isSmartGroup": false,
+        "richText": {
+          "content": ""
+        }
+      },
+      {
+        "fields": [
+          {
+            "name": "lastname",
+            "label": "Last Name",
+            "type": "string",
+            "fieldType": "text",
+            "description": "",
+            "groupName": "",
+            "displayOrder": 1,
+            "required": false,
+            "selectedOptions": [
+
+            ],
+            "options": [
+
+            ],
+            "validation": {
+              "name": "",
+              "message": "",
+              "data": "",
+              "useDefaultBlockList": false,
+              "blockedEmailAddresses": [
+
+              ]
+            },
+            "enabled": true,
+            "hidden": false,
+            "defaultValue": "",
+            "isSmartField": false,
+            "unselectedLabel": "",
+            "placeholder": "",
+            "dependentFieldFilters": [
+
+            ],
+            "labelHidden": false
+          }
+        ],
+        "default": true,
+        "isSmartGroup": false,
+        "richText": {
+          "content": ""
+        }
+      }
+    ],
+    "createdAt": 1318534279910,
+    "updatedAt": 1463633126831,
+    "performableHtml": "",
+    "migratedFrom": "ld",
+    "ignoreCurrentValues": false,
+    "metaData": [
+
+    ],
+    "deletable": true,
+    "inlineMessage": "",
+    "tmsId": "",
+    "captchaEnabled": false,
+    "campaignGuid": "",
+    "cloneable": true,
+    "editable": true,
+    "formType": "HUBSPOT"
+  },
+  {
+    "portalId": 62515,
+    "guid": "00442a1e-6d99-4abc-aac7-2a7d62a94284",
+    "name": "Example Form 2",
+    "action": "",
+    "method": "",
+    "cssClass": "",
+    "redirect": "",
+    "submitText": "",
+    "followUpId": "",
+    "notifyRecipients": "",
+    "leadNurturingCampaignId": "",
+    "formFieldGroups": [
+
+    ],
+    "createdAt": 0,
+    "updatedAt": 1465009327571,
+    "performableHtml": "",
+    "migratedFrom": "",
+    "ignoreCurrentValues": false,
+    "metaData": [
+
+    ],
+    "deletable": true,
+    "inlineMessage": "",
+    "tmsId": "",
+    "captchaEnabled": false,
+    "campaignGuid": "",
+    "cloneable": true,
+    "editable": true,
+    "formType": "HUBSPOT"
+  }
+]

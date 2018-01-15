@@ -1,0 +1,59 @@
+{
+  "lists": [
+    {
+      "dynamic": true,
+      "metaData": {
+        "processing": "DONE",
+        "size": 161,
+        "error": "",
+        "lastProcessingStateChangeAt": 1477518645996,
+        "lastSizeChangeAt": 1479298304451
+      },
+      "name": "test emails",
+      "filters": [
+        [
+          {
+            "filterFamily": "PropertyValue",
+            "withinTimeMode": "PAST",
+            "checkPastVersions": false,
+            "type": "string",
+            "property": "email",
+            "value": "test",
+            "operator": "STR_STARTS_WITH"
+          }
+        ]
+      ],
+      "portalId": 62515,
+      "createdAt": 1335448813688,
+      "listId": 1,
+      "updatedAt": 1477944356444,
+      "listType": "DYNAMIC",
+      "internalListId": 220441,
+      "deleteable": true
+    },
+    {
+      "dynamic": false,
+      "metaData": {
+        "processing": "DONE",
+        "size": 2,
+        "error": "",
+        "lastProcessingStateChangeAt": 1344891893390,
+        "lastSizeChangeAt": 1478203761479
+      },
+      "name": "staticTest",
+      "filters": [
+
+      ],
+      "portalId": 62515,
+      "createdAt": 1344891893390,
+      "listId": 3,
+      "updatedAt": 1463648268810,
+      "listType": "STATIC",
+      "internalListId": 5
+    }
+  ],
+  "offset": 2,
+  "has-more": true
+}
+
+      
