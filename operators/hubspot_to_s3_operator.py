@@ -51,6 +51,11 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                                      Acceptable parameters will vary by object
                                      being requested. See Hubspot documentation
                                      for more details.
+
+                                     NOTE: If time used as filter in request, this
+                                     operator expects the timestamp to be in the following
+                                     format "%Y-%m-%d %H:%M:%S"
+
     :type hubspot_args:              dict
     :param s3_conn_id:               The s3 connection id.
     :type s3_conn_id:                string
@@ -329,7 +334,9 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                             logging.info('Skipping downstream tasks...')
                             logging.debug("Downstream task_ids %s", downstream_tasks)
                             if downstream_tasks:
-                                self.skip(context['dag_run'], context['ti'].execution_date, downstream_tasks)
+                                self.skip(context['dag_run'],
+                                          context['ti'].execution_date,
+                                          downstream_tasks)
                             return True
                         final_output = []
                         for company in companies:
@@ -374,7 +381,8 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                 new_offset = ('INCREMENTAL_KEY__{0}_{1}_vidOffset'
                               .format(context['ti'].dag_id,
                                       context['ti'].task_id))
-                logging.info('New Variable offset is now: ' + str(response[offset_variable]))
+                logging.info('New Variable offset is now: '
+                             + str(response[offset_variable]))
 
                 Variable.set(new_offset, response[offset_variable])
 
