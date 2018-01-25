@@ -14,5 +14,4 @@ class HubspotHook(HttpHook):
             data['hapikey'] = self.hapikey
         else:
             headers = {"Authorization": "Bearer {0}".format(conn.password)}
-
         return super().run(endpoint, data, headers)
