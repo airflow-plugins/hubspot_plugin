@@ -51,11 +51,6 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                                      Acceptable parameters will vary by object
                                      being requested. See Hubspot documentation
                                      for more details.
-
-                                     NOTE: If time used as filter in request, this
-                                     operator expects the timestamp to be in the following
-                                     format "%Y-%m-%d %H:%M:%S"
-
     :type hubspot_args:              dict
     :param s3_conn_id:               The s3 connection id.
     :type s3_conn_id:                string
@@ -115,14 +110,12 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                                            context,
                                            "email/public/v1/campaigns")
             final_output = []
-            print(campaigns)
             for campaign in campaigns[0]['core']:
                 logging.info("CAMPAIGN ID: " + str(campaign))
                 output = self.retrieve_data(h,
                                             context,
                                             campaign_id=campaign['id'])
                 output = output[0]['core']
-                print(output)
                 final_output.extend(output)
             self.outputManager(context,
                                final_output,
@@ -145,7 +138,8 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                               downstream_tasks)
                 return True
             final_output = []
-            for company in companies:
+
+            for company in companies[0]['core']:
                 output = self.retrieve_data(h,
                                             context,
                                             company_id=company['companyId'])
@@ -165,7 +159,8 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                                                          self.split[1])
                     else:
                         key = '{0}_{1}_final{2}'.format(self.split[0],
-                                                        boa.constrict(k),
+                                                        k.lower().replace('.',
+                                                                          '_'),
                                                         self.split[1])
 
                     self.outputManager(context,
@@ -319,7 +314,11 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                 except:
                     pass
 
-                output.extend([e for e in response[self.hubspot_object]])
+                if endpoint == 'companies/v2/companies/paged':
+                    if response['companies']:
+                        output.extend([e for e in response['companies']])
+                else:
+                    output.extend([e for e in response[self.hubspot_object]])
 
                 n += 1
                 time.sleep(0.2)
@@ -334,9 +333,7 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                             logging.info('Skipping downstream tasks...')
                             logging.debug("Downstream task_ids %s", downstream_tasks)
                             if downstream_tasks:
-                                self.skip(context['dag_run'],
-                                          context['ti'].execution_date,
-                                          downstream_tasks)
+                                self.skip(context['dag_run'], context['ti'].execution_date, downstream_tasks)
                             return True
                         final_output = []
                         for company in companies:
@@ -367,24 +364,31 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                                                    key,
                                                    self.s3_bucket)
                                 if self.hubspot_object == 'contacts':
-                                    new_offset = ('INCREMENTAL_KEY__{0}_{1}_vidOffset'
-                                                  .format(context['ti'].dag_id,
-                                                          context['ti'].task_id))
-                                    logging.info('New Variable offset is now: ' +\
-                                                 str(response[offset_variable]))
+                                    if response[offset_variable] == 0:
+                                        logging.info('No new records received.')
+                                        logging.info('Offset variable is still: ' + str(initial_offset))
+                                    else:
+                                        new_offset = ('INCREMENTAL_KEY__{0}_{1}_vidOffset'
+                                                      .format(context['ti'].dag_id,
+                                                              context['ti'].task_id))
+                                        logging.info('New Variable offset is now: ' +\
+                                                     str(response[offset_variable]))
 
-                                    Variable.set(new_offset, response[offset_variable])
+                                        Variable.set(new_offset, response[offset_variable])
 
                     output = []
 
             if self.hubspot_object == 'contacts':
-                new_offset = ('INCREMENTAL_KEY__{0}_{1}_vidOffset'
-                              .format(context['ti'].dag_id,
-                                      context['ti'].task_id))
-                logging.info('New Variable offset is now: '
-                             + str(response[offset_variable]))
+                if response[offset_variable] == 0:
+                    logging.info('No new records received.')
+                    logging.info('Offset variable is still: ' + str(initial_offset))
+                else:
+                    new_offset = ('INCREMENTAL_KEY__{0}_{1}_vidOffset'
+                                  .format(context['ti'].dag_id,
+                                          context['ti'].task_id))
+                    logging.info('New Variable offset is now: ' + str(response[offset_variable]))
 
-                Variable.set(new_offset, response[offset_variable])
+                    Variable.set(new_offset, response[offset_variable])
 
 
         # output = [self.filterMapper(record) for record in output]
@@ -482,22 +486,33 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                     'retained': [{'id': 'workflow_id'}]
                     },
                    {'name': 'workflows',
-                    'split': 'contactListIds',
+                    'split': 'contactListIds.steps',
                     'retained': [{'id': 'workflow_id'}]
                     }]
 
         def process_record(record, mapping):
             final_returnable_dict = {}
+
+            def getByDotNotation(obj, ref):
+                val = obj
+                try:
+                    for key in ref.split('.'):
+                        val = val[key]
+                except:
+                    val = False
+                return val
+
             for entry in mapping:
                 returnable_list = []
-                if (entry['name'] == self.hubspot_object) and (entry['split'] in list(record.keys())):
-                    for item in record[entry['split']]:
+                subtable_data = getByDotNotation(record, entry['split'])
+                if ((entry['name'] == self.hubspot_object) and subtable_data):
+                    final_key_split = entry['split'].lower().replace('.', '_')
+                    for item in subtable_data:
                         returnable_dict = {}
                         if isinstance(item, dict):
                             returnable_dict = item
-                        elif isinstance(item, str):
-                            (returnable_dict['{0}'.format(entry['split'])]
-                             == record[entry['split']])
+                        elif isinstance(item, str) or isinstance(item, int):
+                            returnable_dict[final_key_split] = item
                         for item in entry['retained']:
                             for k, v in item.items():
                                 try:
@@ -506,7 +521,7 @@ class HubspotToS3Operator(BaseOperator, SkipMixin):
                                     logging.info(record)
                                     logging.info(returnable_dict[v])
                         returnable_list.append(returnable_dict)
-                    del record[entry['split']]
+
                 if returnable_list:
                     final_returnable_dict[entry['split']] = returnable_list
 
