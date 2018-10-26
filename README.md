@@ -44,3 +44,43 @@ njson format. The parameters it can accept include the following.
 - `s3_conn_id`               The s3 connection id.
 - `s3_bucket`                The S3 bucket to be used to store the Hubspot data.
 - `s3_key`                   The S3 key to be used to store the Hubspot data.
+
+## Install
+
+
+First we need to get the dependencies installed with:
+```
+pip3 install -r requirements.txt
+```
+
+Next step is to add the `$AIRFLOW_HOME/plugins` to the **PYTHONPATH**.
+```
+export PYTHONPATH="$PYTHONPATH:$AIRFLOW_HOME/plugins"
+```
+> this also works: `PYTHONPATH=$AIRFLOW_HOME/plugins airflow webserver`
+
+Put the files from this repository on the Airflow Plugins directory
+
+```
+cp -rf ~/devel/hubspot_plugin/ $AIRFLOW_HOME/plugins
+```
+
+## Connections Settings _(`Airflow > Admin > Connections`)_
+
+### Hubspot
+
+Create a **HTTP** connection, filling the following fields:
+
+ - **Host**: api.hubapi.com/
+ - **Schema**: https
+ - **Extra** with something like this:
+    ```
+    {"hapikey": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+    ```
+
+### S3
+
+Create a **S3** connection, filling the **Extra** field with something like this:
+```
+{"aws_access_key_id": "xxxxxxxxxxx", "aws_secret_access_key": "xxxxxxxxxxxxxxxxxx/xxxx"}
+```
