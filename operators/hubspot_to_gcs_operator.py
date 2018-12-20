@@ -198,8 +198,6 @@ class HubspotToGCSOperator(BaseOperator, SkipMixin):
 
             gcs_conn.upload(self.gcs_bucket, self.gcs_object, "__temp__")
 
-            os.remove("__temp__")
-
             self.total_output_files += 1
 
     def retrieve_data(self,
