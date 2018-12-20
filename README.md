@@ -1,6 +1,6 @@
 # Plugin - Hubspot to S3
 
-This plugin moves data from the [Hubspot](https://developers.hubspot.com/docs/overview) API to S3 based on the specified object
+This plugin moves data from the [Hubspot](https://developers.hubspot.com/docs/overview) API to S3 or GCS based on the specified object
 
 ## Hooks
 ### HubspotHook
@@ -44,3 +44,38 @@ njson format. The parameters it can accept include the following.
 - `s3_conn_id`               The s3 connection id.
 - `s3_bucket`                The S3 bucket to be used to store the Hubspot data.
 - `s3_key`                   The S3 key to be used to store the Hubspot data.
+
+### HubspotToGCSOperator
+This operator composes the logic for this plugin. It fetches the Hubpsot specified object and saves the result in a GCS Bucket, under a specified key, in
+njson format. The parameters it can accept include the following.
+
+#### NOTE: A number of endpoints have nested arrays that are moved into their own table. In situations like this, the secondary table will have the prefix of the main Hubspot object.
+
+  Example: The "Form Submissions" list of dictionaries in the contacts object will become it's own table with the label "contacts_form_submissions".
+
+- `hubspot_conn_id`          The Hubspot connection id.
+- `hubspot_object`           The desired Hubspot object. The currently
+                             supported values are:
+                                - campaigns
+                                - companies
+                                - contacts
+                                - contacts_by_company
+                                - deals
+                                - deal_pipelines
+                                - events
+                                - engagements
+                                - forms
+                                - keywords
+                                - lists
+                                - social
+                                - owners
+                                - timeline
+                                - workflows
+- `hubspot_args`             Any additional arguments being sent to
+                             Hubspot to filter or format the results.
+                             Acceptable parameters will vary by object
+                             being requested. See Hubspot documentation
+                             for more details.
+- `gcs_conn_id`               The GCS connection id.
+- `gcs_bucket`                The GCS bucket to be used to store the Hubspot data.
+- `gcs_name`                   The GCS name to be used to store the Hubspot data.
